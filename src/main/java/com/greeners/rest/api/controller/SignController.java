@@ -28,10 +28,13 @@ import lombok.RequiredArgsConstructor;
 public class SignController {
 
     private final UserRepository userJpaRepo;
+    
     private final JwtTokenProvider jwtTokenProvider;
+    
     private final ResponseService responseService;
+    
     private final PasswordEncoder passwordEncoder;
-
+    
     @ApiOperation(value = "로그인", notes = "이메일 회원 로그인을 한다.")
     @PostMapping(value = "/signin")
     public SingleResult<String> signin(@ApiParam(value = "회원ID : 이메일", required = true) @RequestParam String id,
