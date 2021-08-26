@@ -8,4 +8,6 @@ import com.greeners.rest.api.entity.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByUid(String email);
+
+    Optional<User> findByUidAndProvider(String uid, String provider);
 }

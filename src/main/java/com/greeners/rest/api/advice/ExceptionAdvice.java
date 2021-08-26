@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.greeners.rest.api.advice.exception.CustomAuthenticationEntryPointException;
+import com.greeners.rest.api.advice.exception.CustomCommunicationException;
 import com.greeners.rest.api.advice.exception.CustomEmailSigninFailedException;
+import com.greeners.rest.api.advice.exception.CustomUserExistException;
 import com.greeners.rest.api.advice.exception.CustomUserNotFoundException;
 import com.greeners.rest.api.model.response.CommonResult;
 import com.greeners.rest.api.service.ResponseService;
@@ -54,6 +56,18 @@ public class ExceptionAdvice {
     @ExceptionHandler(AccessDeniedException.class)
     public CommonResult AccessDeniedException(HttpServletRequest request, AccessDeniedException e) {
             return responseService.getFailResult(Integer.valueOf(getMessage("accessDenied.code")), getMessage("accessDenied.msg"));
+    }
+    
+    @ExceptionHandler(CustomCommunicationException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public CommonResult communicationException(HttpServletRequest request, CustomCommunicationException e) {
+            return responseService.getFailResult(Integer.valueOf(getMessage("communicationError.code")), getMessage("communicationError.msg"));
+        }
+    
+    @ExceptionHandler(CustomUserExistException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+        public CommonResult communicationException(HttpServletRequest request, CustomUserExistException e) {
+            return responseService.getFailResult(Integer.valueOf(getMessage("existingUser.code")), getMessage("existingUser.msg"));
     }
     
     // code정보에 해당하는 메시지를 조회합니다.

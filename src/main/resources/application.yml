@@ -1,3 +1,4 @@
+
 server:
   port: 8080
 
@@ -15,3 +16,13 @@ spring:
     encoding: UTF-8
   jwt:
     secret: govlepel@$&
+  social:
+    kakao:
+      client_id: 318de96894e5112beff951b82eb9c770 # 앱생성시 받은 REST API 키
+      redirect: /social/login/kakao
+      url:
+        login: https://kauth.kakao.com/oauth/authorize
+        token: https://kauth.kakao.com/oauth/token
+        profile: https://kapi.kakao.com/v2/user/me
+  url:
+    base: http://localhost:8080
