@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.greeners.rest.api.advice.exception.CNotOwnerException;
+import com.greeners.rest.api.advice.exception.CResourceNotExistException;
 import com.greeners.rest.api.advice.exception.CustomAuthenticationEntryPointException;
 import com.greeners.rest.api.advice.exception.CustomCommunicationException;
 import com.greeners.rest.api.advice.exception.CustomEmailSigninFailedException;
@@ -68,6 +70,18 @@ public class ExceptionAdvice {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
         public CommonResult communicationException(HttpServletRequest request, CustomUserExistException e) {
             return responseService.getFailResult(Integer.valueOf(getMessage("existingUser.code")), getMessage("existingUser.msg"));
+    }
+    
+    @ExceptionHandler(CNotOwnerException.class)
+    @ResponseStatus(HttpStatus.NON_AUTHORITATIVE_INFORMATION)
+    public CommonResult notOwnerException(HttpServletRequest request, CNotOwnerException e) {
+        return responseService.getFailResult(Integer.valueOf(getMessage("notOwner.code")), getMessage("notOwner.msg"));
+    }
+
+    @ExceptionHandler(CResourceNotExistException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public CommonResult resourceNotExistException(HttpServletRequest request, CResourceNotExistException e) {
+        return responseService.getFailResult(Integer.valueOf(getMessage("resourceNotExist.code")), getMessage("resourceNotExist.msg"));
     }
     
     // code정보에 해당하는 메시지를 조회합니다.
