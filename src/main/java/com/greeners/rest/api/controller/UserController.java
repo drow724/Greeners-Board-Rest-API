@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.greeners.rest.api.advice.exception.CUserNotFoundException;
+import com.greeners.rest.api.advice.exception.CustomUserNotFoundException;
 import com.greeners.rest.api.entity.User;
 import com.greeners.rest.api.model.response.CommonResult;
 import com.greeners.rest.api.model.response.ListResult;
@@ -54,7 +54,7 @@ public class UserController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String id = authentication.getName();
         // 결과데이터가 단일건인경우 getSingleResult를 이용해서 결과를 출력한다.
-        return responseService.getSingleResult(userJpaRepo.findByUid(id).orElseThrow(CUserNotFoundException::new));
+        return responseService.getSingleResult(userJpaRepo.findByUid(id).orElseThrow(CustomUserNotFoundException::new));
     }
 
     @ApiImplicitParams({
@@ -67,7 +67,7 @@ public class UserController {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String id = authentication.getName();
-        User user = userJpaRepo.findByUid(id).orElseThrow(CUserNotFoundException::new);
+        User user = userJpaRepo.findByUid(id).orElseThrow(CustomUserNotFoundException::new);
         user.setName(name);
         return responseService.getSingleResult(userJpaRepo.save(user));
     }

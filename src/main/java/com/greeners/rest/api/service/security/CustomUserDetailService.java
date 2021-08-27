@@ -5,7 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
-import com.greeners.rest.api.advice.exception.CUserNotFoundException;
+import com.greeners.rest.api.advice.exception.CustomUserNotFoundException;
 import com.greeners.rest.api.common.CacheKey;
 import com.greeners.rest.api.repository.UserRepository;
 
@@ -19,6 +19,6 @@ public class CustomUserDetailService implements UserDetailsService {
 
     @Cacheable(value = CacheKey.USER, key = "#userPk", unless = "#result == null")
     public UserDetails loadUserByUsername(String userPk) {
-        return userJpaRepo.findById(Long.valueOf(userPk)).orElseThrow(CUserNotFoundException::new);
+        return userJpaRepo.findById(Long.valueOf(userPk)).orElseThrow(CustomUserNotFoundException::new);
     }
 }

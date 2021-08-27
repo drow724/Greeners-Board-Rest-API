@@ -1,4 +1,3 @@
-# exception_en.yml
 unKnown:
   code: "-9999"
   msg: "An unknown error has occurred."
@@ -9,8 +8,8 @@ emailSigninFailed:
   code: "-1001"
   msg: "Your account does not exist or your email or password is incorrect."
 entryPointException:
-   code: "-1002"
-   msg: "You do not have permission to access this resource."
+  code: "-1002"
+  msg: "You do not have permission to access this resource."
 accessDenied:
   code: "-1003"
   msg: "A resource that can not be accessed with the privileges it has."
@@ -26,3 +25,6 @@ notOwner:
 resourceNotExist:
   code: "-1007"
   msg: "This resource does not exist."
+forbiddenWord:
+  code: "-1008"
+  msg: "forbidden words ({0}) are included in the input."

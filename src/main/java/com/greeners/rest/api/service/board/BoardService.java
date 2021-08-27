@@ -9,9 +9,9 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import com.greeners.rest.api.advice.exception.CNotOwnerException;
-import com.greeners.rest.api.advice.exception.CResourceNotExistException;
-import com.greeners.rest.api.advice.exception.CUserNotFoundException;
+import com.greeners.rest.api.advice.exception.CustomNotOwnerException;
+import com.greeners.rest.api.advice.exception.CustomResourceNotExistException;
+import com.greeners.rest.api.advice.exception.CustomUserNotFoundException;
 import com.greeners.rest.api.annotation.ForbiddenWordCheck;
 import com.greeners.rest.api.common.CacheKey;
 import com.greeners.rest.api.entity.User;
@@ -44,7 +44,7 @@ public class BoardService {
     // 게시판 이름으로 게시판을 조회. 없을경우 CResourceNotExistException 처리
     @Cacheable(value = CacheKey.BOARD, key = "#boardName", unless = "#result == null")
     public Board findBoard(String boardName) {
-        return Optional.ofNullable(boardJpaRepo.findByName(boardName)).orElseThrow(CResourceNotExistException::new);
+        return Optional.ofNullable(boardJpaRepo.findByName(boardName)).orElseThrow(CustomResourceNotExistException::new);
     }
 
     // 게시판 이름으로 게시글 리스트 조회.
@@ -56,7 +56,7 @@ public class BoardService {
     // 게시글ID로 게시글 단건 조회. 없을경우 CResourceNotExistException 처리
     @Cacheable(value = CacheKey.POST, key = "#postId", unless = "#result == null")
     public Post getPost(long postId) {
-        return postJpaRepo.findById(postId).orElseThrow(CResourceNotExistException::new);
+        return postJpaRepo.findById(postId).orElseThrow(CustomResourceNotExistException::new);
     }
 
     // 게시글을 등록합니다. 게시글의 회원UID가 조회되지 않으면 CUserNotFoundException 처리합니다.
@@ -64,7 +64,7 @@ public class BoardService {
     @ForbiddenWordCheck
     public Post writePost(String uid, String boardName, ParamsPost paramsPost) {
         Board board = findBoard(boardName);
-        Post post = new Post(userJpaRepo.findByUid(uid).orElseThrow(CUserNotFoundException::new), board, paramsPost.getAuthor(), paramsPost.getTitle(), paramsPost.getContent());
+        Post post = new Post(userJpaRepo.findByUid(uid).orElseThrow(CustomUserNotFoundException::new), board, paramsPost.getAuthor(), paramsPost.getTitle(), paramsPost.getContent());
         return postJpaRepo.save(post);
     }
 
@@ -75,7 +75,7 @@ public class BoardService {
         Post post = getPost(postId);
         User user = post.getUser();
         if (!uid.equals(user.getUid()))
-            throw new CNotOwnerException();
+            throw new CustomNotOwnerException();
 
         // 영속성 컨텍스트의 변경감지(dirty checking) 기능에 의해 조회한 Post내용을 변경만 해도 Update쿼리가 실행됩니다.
         post.setUpdate(paramsPost.getAuthor(), paramsPost.getTitle(), paramsPost.getContent());
@@ -88,7 +88,7 @@ public class BoardService {
         Post post = getPost(postId);
         User user = post.getUser();
         if (!uid.equals(user.getUid()))
-            throw new CNotOwnerException();
+            throw new CustomNotOwnerException();
         postJpaRepo.delete(post);
         cacheSevice.deleteBoardCache(post.getPostId(), post.getBoard().getName());
         return true;
