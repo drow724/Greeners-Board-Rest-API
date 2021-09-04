@@ -1,0 +1,27 @@
+logging:
+  level:
+    root: warn
+    com.rest.api: info
+  path: /home/songjackson96/app/log
+  file:
+    max-history: 7
+
+spring:
+  profiles: alpha
+  datasource:
+    url: jdbc:mysql://34.64.246.55:36091/greenersboard
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: "song"
+    password: "!!Aa119562"
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    properties.hibernate:
+      hbm2ddl.auto: update
+      format_sql: true
+    showSql: true
+    generate-ddl: true
+  url:
+    base: http://board-api.greeners.shop
+  redis:
+    host: localhost
+    port: 6379

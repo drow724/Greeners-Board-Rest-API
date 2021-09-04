@@ -10,5 +10,10 @@ public class CacheKey {
     public static final String POST = "post";
     public static final String POSTS = "posts";
     public static final int POST_EXPIRE_SEC = 60 * 5; // 5 minutes
-
+    public static final String COMMENT = "comment";
+    public static final String COMMENTS = "comments";
+    public static final int COMMENT_EXPIRE_SEC = 60 * 5; // 5 minutes
+    public static final String RECOMMENT = "reComment";
+    public static final String RECOMMENTS = "reComments";
+    public static final int RECOMMENT_EXPIRE_SEC = 60 * 5; // 5 minutes
 }

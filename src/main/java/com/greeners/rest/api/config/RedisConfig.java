@@ -42,7 +42,15 @@ public class RedisConfig {
                 .entryTtl(Duration.ofSeconds(CacheKey.POST_EXPIRE_SEC)));
         cacheConfigurations.put(CacheKey.POSTS, RedisCacheConfiguration.defaultCacheConfig()
                 .entryTtl(Duration.ofSeconds(CacheKey.POST_EXPIRE_SEC)));
-
+        cacheConfigurations.put(CacheKey.COMMENT, RedisCacheConfiguration.defaultCacheConfig()
+                .entryTtl(Duration.ofSeconds(CacheKey.COMMENT_EXPIRE_SEC)));
+        cacheConfigurations.put(CacheKey.COMMENTS, RedisCacheConfiguration.defaultCacheConfig()
+                .entryTtl(Duration.ofSeconds(CacheKey.COMMENT_EXPIRE_SEC)));
+        cacheConfigurations.put(CacheKey.RECOMMENT, RedisCacheConfiguration.defaultCacheConfig()
+                .entryTtl(Duration.ofSeconds(CacheKey.RECOMMENT_EXPIRE_SEC)));
+        cacheConfigurations.put(CacheKey.RECOMMENTS, RedisCacheConfiguration.defaultCacheConfig()
+                .entryTtl(Duration.ofSeconds(CacheKey.RECOMMENT_EXPIRE_SEC)));
+        
         return RedisCacheManager.RedisCacheManagerBuilder.fromConnectionFactory(connectionFactory).cacheDefaults(configuration)
                 .withInitialCacheConfigurations(cacheConfigurations).build();
     }

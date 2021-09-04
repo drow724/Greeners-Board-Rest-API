@@ -1,24 +1,9 @@
-server:
-  port: 8080
-
 spring:
-  datasource:
-    url: jdbc:mysql://34.64.246.55:36091/daddyprogrammer?useUnicode=true&autoReconnect=true&characterEncoding=utf8&allowMultiQueries=true&useSSL=false
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: song
-    password: "!!Aa119562"
-  jpa:
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-    properties.hibernate:
-      hbm2ddl.auto: update
-      format_sql: true
-    showSql: true
-    generate-ddl: true
+  profiles:
+    active: local # 디폴트 환경
   messages:
     basename: i18n/exception
     encoding: UTF-8
-  jwt:
-    secret: govlepel@$&
   social:
     kakao:
       client_id: 318de96894e5112beff951b82eb9c770 # 앱생성시 받은 REST API 키
@@ -27,5 +12,5 @@ spring:
         login: https://kauth.kakao.com/oauth/authorize
         token: https://kauth.kakao.com/oauth/token
         profile: https://kapi.kakao.com/v2/user/me
-  url:
-    base: http://board-api.greeners.shop
+  jwt:
+    secret: govlepel@$&

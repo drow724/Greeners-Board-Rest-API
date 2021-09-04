@@ -1,4 +1,2 @@
-com/greeners/rest/api/repository/UserJpaRepoTest.java
- com.greeners.rest.api.repository.UserJpaRepoTest
-com/greeners/rest/api/controller/SignControllerTest.java
- com.greeners.rest.api.controller.SignControllerTest
+com/greeners/rest/api/service/CommentServiceTest.java
+ com.greeners.rest.api.service.CommentServiceTest

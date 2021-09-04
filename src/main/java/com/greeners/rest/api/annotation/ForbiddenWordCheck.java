@@ -5,7 +5,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.greeners.rest.api.model.board.ParamsPost;
+import com.greeners.rest.api.model.ParamsPost;
 
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
